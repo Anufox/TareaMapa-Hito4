@@ -1,10 +1,13 @@
 
 package com.est.demo.Controllers;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.est.demo.model.Estudiante;
@@ -27,5 +30,11 @@ public class EstudianteController {
     @GetMapping("/estudiantes")
     public ResponseEntity<Object> getEstudiantes() {
         return new ResponseEntity<>(estudiantes.values(), HttpStatus.OK);
+    }
+
+    @PostMapping("/estudiantes")
+    public ResponseEntity<Object> registrarEstudiante(@RequestBody Estudiante est) {
+        estudiantes.put(est.getCodigo(), est);
+        return new ResponseEntity<>("El estudiante se creo correctamente: " + est.getCodigo(), HttpStatus.OK);
     }
 }
